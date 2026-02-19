@@ -4,8 +4,7 @@ import node from '@astrojs/node';
 export default defineConfig({
   output: 'server',
   adapter: node({
-    mode: 'standalone',
-    port: 3000
+    mode: 'standalone'
   }),
   site: 'https://openspec.smarterbot.cl',
   compressHTML: true,
@@ -15,7 +14,7 @@ export default defineConfig({
   vite: {
     server: {
       host: '0.0.0.0',
-      port: 3000
+      port: 4321
     }
   }
 });

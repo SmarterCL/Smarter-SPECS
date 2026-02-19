@@ -9,9 +9,13 @@ COPY . .
 
 RUN npm run build
 
-EXPOSE 3000
+# Fix host binding in generated entry point
+RUN sed -i 's/"host": false/"host": "0.0.0.0"/g' dist/server/entry.mjs
 
-ENV HOST=0.0.0.0
-ENV PORT=3000
+EXPOSE 4321
 
-CMD ["npm", "run", "preview"]
+ENV NODE_ENV=production
+ENV PORT=4321
+ENV ASTRO_TELEMETRY_DISABLED=1
+
+CMD ["node", "dist/server/entry.mjs"]
