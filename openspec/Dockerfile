@@ -1,4 +1,4 @@
-FROM node:20-alpine
+FROM node:24-alpine
 
 WORKDIR /app
 
@@ -8,9 +8,6 @@ RUN npm install
 COPY . .
 
 RUN npm run build
-
-# Fix host binding in generated entry point
-RUN sed -i 's/"host": false/"host": "0.0.0.0"/g' dist/server/entry.mjs
 
 EXPOSE 4321
 
