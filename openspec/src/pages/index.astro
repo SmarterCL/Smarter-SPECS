@@ -1,0 +1,409 @@
+---
+import ServiceCard from '../components/ServiceCard.astro';
+import RutValidator from '../components/RutValidator.astro';
+
+const services = [
+  {
+    id: 'waba-integration',
+    name: 'WhatsApp Business API',
+    description: 'Conexión WABA con validación Sercotec y orquestación MCP',
+    price: '$50.000/mes',
+    status: 'active',
+    repo: 'flow.smarterbot.cl'
+  },
+  {
+    id: 'meli-connector',
+    name: 'Mercado Libre Connector',
+    description: 'Búsqueda, recomendación y checkout automático vía MCP',
+    price: '$75.000/mes',
+    status: 'active',
+    repo: 'smartermcp'
+  },
+  {
+    id: 'odoo-sync',
+    name: 'Odoo Synchronization',
+    description: 'Sync bidireccional con Odoo ERP + Metabase KPIs',
+    price: '$100.000/mes',
+    status: 'active',
+    repo: 'odoo.smarterbot.cl'
+  },
+  {
+    id: 'sercotec-auth',
+    name: 'Sercotec Autenticador',
+    description: 'Validación de identidad con API Sercotec (Ley 19.628)',
+    price: '$30.000/mes',
+    status: 'active',
+    repo: 'smarter.rut'
+  }
+];
+---
+
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>OpenSpec - SmarterOS</title>
+    <meta name="description" content="El Libro Abierto de SmarterOS - Ingeniería de agentes autónomos" />
+  </head>
+  <body>
+    <header class="header">
+      <div class="container">
+        <h1>📘 OpenSpec</h1>
+        <p class="tagline">El Libro Abierto de SmarterOS</p>
+        <nav>
+          <a href="#services">Servicios</a>
+          <a href="#templates">Templates</a>
+          <a href="#api-docs">API Docs</a>
+          <a href="https://github.com/SmarterCL" target="_blank">GitHub</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <!-- Hero Section -->
+      <section class="hero">
+        <div class="container">
+          <h2>Ingeniería SMARTER para empresas autónomas</h2>
+          <p>
+            SmarterOS es un sistema operativo de agentes que conecta WhatsApp, 
+            Mercado Libre, Odoo y Sercotec en una sola plataforma orquestada por MCP.
+          </p>
+          <div class="cta-buttons">
+            <a href="https://app.smarterbot.cl" class="btn btn-primary">Validar mi Empresa</a>
+            <a href="https://github.com/SmarterCL/Smarter-SPECS" class="btn btn-secondary">Ver Código</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Sercotec Validator -->
+      <section class="validator-section">
+        <div class="container">
+          <h3>Valida tu empresa con Sercotec</h3>
+          <p>Conectado a la API oficial de autenticación</p>
+          <RutValidator />
+        </div>
+      </section>
+
+      <!-- Services Catalog -->
+      <section id="services" class="services">
+        <div class="container">
+          <h2>Catálogo de Servicios</h2>
+          <div class="services-grid">
+            {services.map(service => (
+              <ServiceCard service={service} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <!-- Templates -->
+      <section id="templates" class="templates">
+        <div class="container">
+          <h2>Templates de smarterbot.store</h2>
+          <p>Cada servicio es un template clonable y personalizable</p>
+          <div class="templates-grid">
+            <div class="template-card">
+              <h4>🧪 Perfume Store</h4>
+              <p>Retail especializado con sync MELI + Odoo</p>
+              <a href="https://perfume.smarterbot.cl" target="_blank">Ver Demo</a>
+            </div>
+            <div class="template-card">
+              <h4>📦 Sologist</h4>
+              <p>Logística y tracking de despachos</p>
+              <a href="https://sologist.smarterbot.cl" target="_blank">Ver Demo</a>
+            </div>
+            <div class="template-card">
+              <h4>✈️ FulldayGo</h4>
+              <p>Gestión de turismo y eventos</p>
+              <a href="https://fulldaygo.smarterbot.cl" target="_blank">Ver Demo</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- API Documentation -->
+      <section id="api-docs" class="api-docs">
+        <div class="container">
+          <h2>Documentación de APIs</h2>
+          <div class="api-list">
+            <div class="api-item">
+              <code>GET /api/v1/catalog</code>
+              <p>Lista de servicios disponibles</p>
+              <a href="https://api.smarterbot.cl/docs" target="_blank">Swagger UI</a>
+            </div>
+            <div class="api-item">
+              <code>GET /api/v1/auth/sercotec-status?rut=...</code>
+              <p>Validación de RUT con Sercotec</p>
+              <a href="https://apiautenticador.sercotec.cl/swagger" target="_blank">Sercotec API</a>
+            </div>
+            <div class="api-item">
+              <code>POST /webhook/whatsapp</code>
+              <p>Webhook de WhatsApp Business API</p>
+              <a href="https://developers.facebook.com/docs/whatsapp" target="_blank">Meta Docs</a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="container">
+        <p>
+          Smarter SpA © 2026 | RUT: 76.123.456-K | Chile
+        </p>
+        <p class="legal">
+          Cumplimiento Ley 19.628 (Protección de Datos) | Ley 21.459 (Delitos Informáticos)
+        </p>
+        <div class="footer-links">
+          <a href="https://github.com/SmarterCL/Smarter-SPECS" target="_blank">GitHub</a>
+          <a href="https://api.smarterbot.cl/docs" target="_blank">API Docs</a>
+          <a href="https://mcp.smarterbot.cl" target="_blank">MCP Server</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
+
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background: #fafafa;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  /* Header */
+  .header {
+    background: white;
+    border-bottom: 1px solid #e6e6e6;
+    padding: 1.5rem 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .header .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .header h1 {
+    font-size: 1.5rem;
+    color: #0066cc;
+  }
+
+  .tagline {
+    color: #666;
+    font-size: 0.9rem;
+  }
+
+  nav {
+    display: flex;
+    gap: 1.5rem;
+  }
+
+  nav a {
+    color: #333;
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  nav a:hover {
+    color: #0066cc;
+  }
+
+  /* Hero */
+  .hero {
+    background: linear-gradient(135deg, #0066cc 0%, #004499 100%);
+    color: white;
+    padding: 4rem 0;
+    text-align: center;
+  }
+
+  .hero h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .hero p {
+    font-size: 1.2rem;
+    max-width: 600px;
+    margin: 0 auto 2rem;
+    opacity: 0.9;
+  }
+
+  .cta-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    padding: 0.75rem 1.5rem;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: transform 0.2s;
+  }
+
+  .btn:hover {
+    transform: translateY(-2px);
+  }
+
+  .btn-primary {
+    background: white;
+    color: #0066cc;
+  }
+
+  .btn-secondary {
+    background: transparent;
+    color: white;
+    border: 2px solid white;
+  }
+
+  /* Sections */
+  section {
+    padding: 3rem 0;
+  }
+
+  h2 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+
+  h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+
+  /* Services Grid */
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+
+  /* Templates */
+  .templates-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+  }
+
+  .template-card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    border: 1px solid #e6e6e6;
+  }
+
+  .template-card h4 {
+    margin-bottom: 0.5rem;
+    color: #0066cc;
+  }
+
+  .template-card a {
+    color: #0066cc;
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  /* API Docs */
+  .api-list {
+    background: white;
+    border-radius: 8px;
+    padding: 2rem;
+    border: 1px solid #e6e6e6;
+  }
+
+  .api-item {
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid #f0f0f0;
+  }
+
+  .api-item:last-child {
+    border-bottom: none;
+  }
+
+  .api-item code {
+    display: block;
+    background: #f5f5f5;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    font-family: 'Monaco', 'Consolas', monospace;
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+    color: #d63384;
+  }
+
+  .api-item a {
+    color: #0066cc;
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  /* Footer */
+  .footer {
+    background: #1a1a1a;
+    color: #999;
+    padding: 2rem 0;
+    text-align: center;
+  }
+
+  .footer-links {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+  }
+
+  .footer-links a {
+    color: #999;
+    text-decoration: none;
+  }
+
+  .footer-links a:hover {
+    color: white;
+  }
+
+  .legal {
+    font-size: 0.8rem;
+    margin-top: 0.5rem;
+    color: #666;
+  }
+
+  @media (max-width: 768px) {
+    .hero h2 {
+      font-size: 1.8rem;
+    }
+
+    .header .container {
+      flex-direction: column;
+      text-align: center;
+    }
+
+    nav {
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+  }
+</style>
