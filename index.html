@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmarterBot Docs - Documentación Pública</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .doc-card:hover { transform: translateY(-4px); }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-blue-600 via-purple-600 to-indigo-700 min-h-screen">
+    
+    <!-- Header -->
+    <header class="bg-white/10 backdrop-blur-lg border-b border-white/20">
+        <div class="container mx-auto px-6 py-8">
+            <h1 class="text-4xl font-bold text-white mb-2">📚 SmarterBot Docs</h1>
+            <p class="text-white/80 text-lg">Documentación pública y kiosk de productos</p>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-6 py-12">
+        
+        <!-- Productos -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-bold text-white mb-6">🚀 Productos</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                
+                <!-- EcoCupón -->
+                <a href="/validador" class="doc-card bg-white/10 backdrop-blur rounded-2xl p-6 border border-white/20 transition">
+                    <div class="text-4xl mb-4">🚗</div>
+                    <h3 class="text-xl font-bold text-white mb-2">EcoCupón Validador</h3>
+                    <p class="text-white/70">Ecocardiograma vehicular automático. Score en 30 segundos.</p>
+                    <div class="mt-4 text-blue-300 text-sm">→ Probar ahora</div>
+                </a>
+
+                <!-- Odoo Multi-Tenant -->
+                <a href="https://tienda.smarterbot.cl" class="doc-card bg-white/10 backdrop-blur rounded-2xl p-6 border border-white/20 transition">
+                    <div class="text-4xl mb-4">🛒</div>
+                    <h3 class="text-xl font-bold text-white mb-2">Odoo Tienda</h3>
+                    <p class="text-white/70">E-commerce multi-tenant con Odoo 17.</p>
+                    <div class="mt-4 text-blue-300 text-sm">→ Ver demo</div>
+                </a>
+
+                <!-- n8n Workflows -->
+                <a href="https://n8n.smarterbot.cl" class="doc-card bg-white/10 backdrop-blur rounded-2xl p-6 border border-white/20 transition">
+                    <div class="text-4xl mb-4">⚡</div>
+                    <h3 class="text-xl font-bold text-white mb-2">n8n Automation</h3>
+                    <p class="text-white/70">Workflows de automatización y IA.</p>
+                    <div class="mt-4 text-blue-300 text-sm">→ Explorar</div>
+                </a>
+
+                <!-- Chatwoot -->
+                <a href="https://chat.smarterbot.cl" class="doc-card bg-white/10 backdrop-blur rounded-2xl p-6 border border-white/20 transition">
+                    <div class="text-4xl mb-4">💬</div>
+                    <h3 class="text-xl font-bold text-white mb-2">Chatwoot</h3>
+                    <p class="text-white/70">Atención omnicanal y CRM.</p>
+                    <div class="mt-4 text-blue-300 text-sm">→ Demo</div>
+                </a>
+
+                <!-- PicoClaw -->
+                <a href="/picoclaw" class="doc-card bg-white/10 backdrop-blur rounded-2xl p-6 border border-white/20 transition">
+                    <div class="text-4xl mb-4">🔧</div>
+                    <h3 class="text-xl font-bold text-white mb-2">PicoClaw</h3>
+                    <p class="text-white/70">Driver hardware para validación vehicular.</p>
+                    <div class="mt-4 text-blue-300 text-sm">→ Documentación</div>
+                </a>
+
+                <!-- MCP Cluster -->
+                <a href="/mcp" class="doc-card bg-white/10 backdrop-blur rounded-2xl p-6 border border-white/20 transition">
+                    <div class="text-4xl mb-4">🧠</div>
+                    <h3 class="text-xl font-bold text-white mb-2">MCP Cluster</h3>
+                    <p class="text-white/70">Model Context Protocol - IA distribuida.</p>
+                    <div class="mt-4 text-blue-300 text-sm">→ Specs</div>
+                </a>
+            </div>
+        </section>
+
+        <!-- Documentación Técnica -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-bold text-white mb-6">📖 Documentación Técnica</h2>
+            <div class="bg-white/10 backdrop-blur rounded-2xl p-6 border border-white/20">
+                <ul class="space-y-3">
+                    <li><a href="/specs/ecocupon" class="text-blue-200 hover:text-white">• Especificación EcoCupón Validador</a></li>
+                    <li><a href="/specs/odoo-tenant" class="text-blue-200 hover:text-white">• Odoo Multi-Tenant Architecture</a></li>
+                    <li><a href="/specs/n8n-workflows" class="text-blue-200 hover:text-white">• n8n Workflows Catalog</a></li>
+                    <li><a href="/specs/picoclaw" class="text-blue-200 hover:text-white">• PicoClaw Driver Specs</a></li>
+                    <li><a href="/specs/mcp-cluster" class="text-blue-200 hover:text-white">• MCP Cluster Documentation</a></li>
+                    <li><a href="/specs/cloudflare-tunnel" class="text-blue-200 hover:text-white">• Cloudflare Tunnel Setup</a></li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Estado del Sistema -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-bold text-white mb-6">📊 Estado del Sistema</h2>
+            <div class="bg-white/10 backdrop-blur rounded-2xl p-6 border border-white/20">
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div class="text-center">
+                        <div class="text-3xl font-bold text-green-400">✅</div>
+                        <div class="text-white/80 text-sm mt-1">Cloudflare Tunnel</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-3xl font-bold text-green-400">✅</div>
+                        <div class="text-white/80 text-sm mt-1">Caddy Web Server</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-3xl font-bold text-green-400">✅</div>
+                        <div class="text-white/80 text-sm mt-1">n8n Workflows</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-3xl font-bold text-yellow-400">⚠️</div>
+                        <div class="text-white/80 text-sm mt-1">SSL Pending</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-black/20 backdrop-blur border-t border-white/20 py-6">
+        <div class="container mx-auto px-6 text-center text-white/60">
+            <p>SmarterOS v5.0 - Powered by Cloudflare + Caddy + n8n</p>
+            <p class="text-sm mt-2">Docs públicas - Sin login requerido</p>
+        </div>
+    </footer>
+
+</body>
+</html>

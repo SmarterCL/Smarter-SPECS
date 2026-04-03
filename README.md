@@ -1,55 +1,44 @@
-# SmarterMCP OAuth Platform
+# Smarter-SPECS
 
-OAuth 2.0 authorization_code flow implementation with JWT-based authorization codes, following MCP-first architecture.
+Especificaciones técnicas del ecosistema Smarter LATAM.
 
-## Features
-- ✅ JWT authorization codes with `aud` and `jti` validation
-- ✅ One-time use codes (optional Redis-based)
-- ✅ Audience validation to prevent cross-client token reuse
-- ✅ MCP as single authority (no direct Odoo access)
-- ✅ Full audit logging
-- ✅ Automated end-to-end testing
+## Estructura
 
-## Quick Start
-```bash
-# Install dependencies
-pip install -r requirements.txt
+| Directorio | Contenido |
+|---|---|
+| `specs/` | Protocolos y especificaciones formales |
+| `architecture/` | Infraestructura VPS, servicios, red |
+| `api/` | Documentación de APIs (Smarter Food API) |
+| `modules/` | Documentación por módulo de código |
+| `runbooks/` | Procedimientos operativos |
 
-# Run tests
-make test-headless
+## Protocolo Smarter v1.0
 
-# Run server
-make run
-```
+Ver [`specs/protocolo.md`](specs/protocolo.md)
 
-## Endpoints
-- `GET /oauth/consent` - Authorization consent screen
-- `POST /oauth/token` - Token exchange (code → access_token)
+**Principio:** Verdad = coherencia(.env ∩ contexto ∩ input_usuario)
 
-## Environment Variables
-```bash
-export MCP_JWT_SECRET="your-jwt-secret"
-export MCP_ACCESS_TOKEN_SECRET="your-access-token-secret"  
-export MCP_REFRESH_TOKEN_SECRET="your-refresh-token-secret"
-```
+**4 Estados:** VALIDADO | SOSPECHOSO | INCOHERENTE | PENDIENTE
 
-## Testing
-```bash
-# Unit tests
-make test
+## Smarter Food API
 
-# End-to-end tests
-make test-headless
-```
+Ver [`api/index.md`](api/index.md)
 
-## Architecture
-```
-Client App → /oauth/consent → MCP → Supabase (validate session/scopes) → Generate JWT code
-Client App → /oauth/token → MCP → Verify JWT code → Generate access_token
-```
+- FastAPI v2.0.0 | Port 8002 | Gemini 2.5 Flash
+- Contrato de Incoherencia antes de IA
+- 4 estados de validación verificados
 
-## Security
-- JWT codes expire in 2 minutes
-- Audience validation prevents token reuse
-- JTI prevents replay attacks
-- All flows audited in `audit_log`
+## Arquitectura VPS
+
+Ver [`architecture/index.md`](architecture/index.md)
+
+- 28 dominios en Caddy
+- 22 contenedores Docker
+- Ollama + Gemini + n8n + Odoo + Chatwoot
+
+## Reglas Críticas
+
+1. Código sin .md → inválido
+2. Cambio en lógica → requiere doc update
+3. Doc desactualizada → sistema incoherente
+4. Deploy sin doc → FAIL

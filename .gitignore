@@ -1,0 +1,12 @@
+node_modules/
+.env
+*.log
+__pycache__/
+*.pyc
+.venv/
+venv/
+*.pyo
+.pytest_cache/
+.DS_Store
+*.swp
+*.swo

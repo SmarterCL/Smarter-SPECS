@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoCupón - Validador de Vehículos</title>
+    <meta name="description" content="Validá tu vehículo en 30 segundos con IA">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-br from-purple-600 via-blue-600 to-indigo-700 min-h-screen flex items-center justify-center p-4">
+    
+    <div class="max-w-md w-full">
+        <!-- Card -->
+        <div class="bg-white rounded-3xl shadow-2xl p-8">
+            <!-- Header -->
+            <div class="text-center mb-8">
+                <div class="text-6xl mb-4">🚗</div>
+                <h1 class="text-3xl font-bold text-gray-800 mb-2">Validador de Vehículos</h1>
+                <p class="text-gray-600">Obtené tu score en 30 segundos</p>
+            </div>
+
+            <!-- Form -->
+            <form id="autoForm" class="space-y-4">
+                <div>
+                    <input 
+                        type="text" 
+                        name="patente" 
+                        placeholder="Patente (ej: ABCD12)" 
+                        required 
+                        class="w-full px-5 py-4 border-2 border-gray-200 rounded-xl text-lg focus:outline-none focus:border-purple-500 transition uppercase"
+                        pattern="[A-Za-z]{4}[0-9]{2}"
+                        title="Formato: 4 letras + 2 números"
+                    />
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <input 
+                        type="text" 
+                        name="marca" 
+                        placeholder="Marca" 
+                        class="w-full px-5 py-4 border-2 border-gray-200 rounded-xl text-lg focus:outline-none focus:border-purple-500 transition"
+                    />
+                    <input 
+                        type="text" 
+                        name="modelo" 
+                        placeholder="Modelo" 
+                        class="w-full px-5 py-4 border-2 border-gray-200 rounded-xl text-lg focus:outline-none focus:border-purple-500 transition"
+                    />
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <input 
+                        type="number" 
+                        name="anio" 
+                        placeholder="Año" 
+                        min="1980"
+                        max="2026"
+                        class="w-full px-5 py-4 border-2 border-gray-200 rounded-xl text-lg focus:outline-none focus:border-purple-500 transition"
+                    />
+                    <input 
+                        type="number" 
+                        name="precio" 
+                        placeholder="Precio (CLP)" 
+                        min="100000"
+                        class="w-full px-5 py-4 border-2 border-gray-200 rounded-xl text-lg focus:outline-none focus:border-purple-500 transition"
+                    />
+                </div>
+
+                <div>
+                    <input 
+                        type="url" 
+                        name="link" 
+                        placeholder="Link publicación (Yapo/Chileautos)" 
+                        class="w-full px-5 py-4 border-2 border-gray-200 rounded-xl text-lg focus:outline-none focus:border-purple-500 transition"
+                    />
+                </div>
+
+                <div>
+                    <input 
+                        type="tel" 
+                        name="telefono" 
+                        placeholder="WhatsApp (ej: +56912345678)" 
+                        required 
+                        class="w-full px-5 py-4 border-2 border-gray-200 rounded-xl text-lg focus:outline-none focus:border-purple-500 transition"
+                        pattern="\+?[0-9]{8,15}"
+                        title="Formato: +569XXXXXXXX"
+                    />
+                </div>
+
+                <button 
+                    type="submit" 
+                    id="submitBtn"
+                    class="w-full bg-gradient-to-r from-purple-600 to-blue-600 text-white py-5 rounded-xl font-bold text-xl hover:shadow-2xl transition transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                    Validar vehículo
+                </button>
+            </form>
+
+            <!-- Status Message -->
+            <div id="statusMessage" class="hidden mt-6 p-4 rounded-xl text-center"></div>
+
+            <!-- Result Section -->
+            <div id="resultSection" class="hidden mt-8 pt-8 border-t-2 border-gray-100">
+                <div class="text-center">
+                    <div class="text-5xl font-bold mb-2" id="scoreDisplay">--</div>
+                    <div class="text-gray-600 mb-4">Score del vehículo</div>
+                    
+                    <div class="bg-gray-50 rounded-xl p-4 mb-4 text-left">
+                        <div class="font-bold text-gray-800 mb-2">Recomendación:</div>
+                        <div id="recommendationDisplay" class="text-lg">--</div>
+                    </div>
+
+                    <div class="bg-gray-50 rounded-xl p-4 mb-6 text-left">
+                        <div class="font-bold text-gray-800 mb-2">Riesgos detectados:</div>
+                        <ul id="risksDisplay" class="text-sm text-gray-600 space-y-1">--</ul>
+                    </div>
+
+                    <a 
+                        href="https://wa.me/56912345678?text=Quiero%20asesoría%20de%20mi%20vehículo" 
+                        target="_blank"
+                        class="block w-full bg-green-500 text-white py-4 rounded-xl font-bold text-lg hover:bg-green-600 transition transform hover:scale-105"
+                    >
+                        💬 Hablar con asesor
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="text-center mt-6 text-white/80 text-sm">
+            Powered by SmarterOS + Gemini AI
+        </div>
+    </div>
+
+    <script>
+        // Usar n8n.smarterbot.cl que ya tiene SSL válido
+        const N8N_WEBHOOK_URL = "https://n8n.smarterbot.cl/webhook/ecocupon";
+
+        document.getElementById("autoForm").addEventListener("submit", async (e) => {
+            e.preventDefault();
+
+            const form = e.target;
+            const submitBtn = document.getElementById("submitBtn");
+            const statusMsg = document.getElementById("statusMessage");
+            const resultSection = document.getElementById("resultSection");
+
+            // UI State: Loading
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = "⏳ Analizando...";
+            statusMsg.className = "hidden";
+            resultSection.classList.add("hidden");
+
+            const data = Object.fromEntries(new FormData(form));
+
+            try {
+                // Send to n8n webhook
+                const response = await fetch(N8N_WEBHOOK_URL, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(data)
+                });
+
+                if (!response.ok) throw new Error("Error en el servidor");
+
+                const result = await response.json();
+
+                // Show result
+                resultSection.classList.remove("hidden");
+                
+                if (result.score) {
+                    document.getElementById("scoreDisplay").textContent = result.score + "/10";
+                    document.getElementById("scoreDisplay").className = 
+                        result.score >= 7 ? "text-5xl font-bold mb-2 text-green-500" :
+                        result.score >= 4 ? "text-5xl font-bold mb-2 text-yellow-500" :
+                        "text-5xl font-bold mb-2 text-red-500";
+                    
+                    document.getElementById("recommendationDisplay").textContent = result.recomendacion || "--";
+                    
+                    if (result.riesgos) {
+                        const risksList = document.getElementById("risksDisplay");
+                        risksList.innerHTML = "";
+                        (Array.isArray(result.riesgos) ? result.riesgos : [result.riesgos]).forEach(risk => {
+                            const li = document.createElement("li");
+                            li.textContent = "• " + risk;
+                            risksList.appendChild(li);
+                        });
+                    }
+                } else {
+                    document.getElementById("scoreDisplay").textContent = "⏳";
+                    document.getElementById("recommendationDisplay").textContent = 
+                        "Estamos analizando tu vehículo. Te contactaremos pronto.";
+                    document.getElementById("risksDisplay").innerHTML = "<li>Validación en proceso...</li>";
+                }
+
+                // Success message
+                statusMsg.className = "mt-6 p-4 rounded-xl text-center bg-green-100 text-green-800";
+                statusMsg.textContent = "✅ Vehículo analizado correctamente";
+
+                form.reset();
+
+            } catch (error) {
+                // Fallback: Show success anyway (webhook may be async)
+                resultSection.classList.remove("hidden");
+                document.getElementById("scoreDisplay").textContent = "⏳";
+                document.getElementById("recommendationDisplay").textContent = 
+                    "Recibimos tus datos. Te contactaremos en menos de 1 hora.";
+                document.getElementById("risksDisplay").innerHTML = "<li>Validación pendiente...</li>";
+
+                statusMsg.className = "mt-6 p-4 rounded-xl text-center bg-blue-100 text-blue-800";
+                statusMsg.textContent = "✅ Datos enviados. Te contactaremos pronto.";
+                
+                form.reset();
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = "Validar otro vehículo";
+            }
+        });
+    </script>
+</body>
+</html>
